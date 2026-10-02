@@ -54,6 +54,24 @@ export const useCheckout = () => {
     }
   }, [selectedAddressId, fetchSummary]);
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (typeof window !== 'undefined' && window.Razorpay) return resolve(true);
+    const existing = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(true));
+      existing.addEventListener('error', () => resolve(false));
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
   const processPaymentCheckout = async () => {
     if (!selectedAddressId) {
       addToast('Please select a shipping delivery address', 'error');
@@ -67,11 +85,80 @@ export const useCheckout = () => {
       const orderRes = await orderApi.createOrder({ addressId: selectedAddressId });
       const order = orderRes.data.order;
 
-      // Step 2: Initialize Payment
+      // Step 2: Initialize Payment Order on Gateway
       const payRes = await paymentApi.createPaymentOrder({ orderId: order._id });
       const paymentOrder = payRes.data;
 
-      // Step 3: Verify Payment (Simulated for instant verification in development/test key mode)
+      // Step 3: Check if real Razorpay keys are active or mock mode
+      const isMockMode = !paymentOrder.keyId || paymentOrder.keyId.startsWith('rzp_test_bookworm');
+
+      if (!isMockMode) {
+        const scriptLoaded = await loadRazorpayScript();
+        if (scriptLoaded && window.Razorpay) {
+          return new Promise((resolve, reject) => {
+            const options = {
+              key: paymentOrder.keyId,
+              amount: paymentOrder.amountInPaise,
+              currency: paymentOrder.currency || 'INR',
+              name: 'BookWORM Marketplace',
+              description: `Order #${paymentOrder.orderNumber}`,
+              order_id: paymentOrder.razorpayOrderId,
+              handler: async (response) => {
+                try {
+                  const verifyRes = await paymentApi.verifyPayment({
+                    orderId: order._id,
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpaySignature: response.razorpay_signature
+                  });
+
+                  addToast('Payment verified & order confirmed successfully!', 'success');
+                  await clearCart();
+                  setSubmitting(false);
+                  resolve(verifyRes.data.order);
+                } catch (verifyErr) {
+                  setError(verifyErr.message);
+                  addToast(verifyErr.message || 'Payment signature verification failed', 'error');
+                  try {
+                    await orderApi.cancelPendingOrder(order._id);
+                    await fetchSummary(selectedAddressId);
+                  } catch (_) {}
+                  setSubmitting(false);
+                  reject(verifyErr);
+                }
+              },
+              modal: {
+                ondismiss: async () => {
+                  setSubmitting(false);
+                  addToast('Payment cancelled. Your items remain saved in your cart.', 'info');
+                  try {
+                    await orderApi.cancelPendingOrder(order._id);
+                    await fetchSummary(selectedAddressId);
+                  } catch (_) {}
+                }
+              },
+              theme: {
+                color: '#4f46e5'
+              }
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.on('payment.failed', async (failRes) => {
+              setSubmitting(false);
+              const errMsg = failRes.error?.description || 'Payment failed at gateway';
+              addToast(`${errMsg}. Your items remain saved in your cart.`, 'error');
+              try {
+                await orderApi.cancelPendingOrder(order._id);
+                await fetchSummary(selectedAddressId);
+              } catch (_) {}
+              reject(new Error(errMsg));
+            });
+            rzp.open();
+          });
+        }
+      }
+
+      // Step 4: Fallback for Mock environment or when Razorpay script isn't needed
       const verifyRes = await paymentApi.verifyPayment({
         orderId: order._id,
         razorpayOrderId: paymentOrder.razorpayOrderId,

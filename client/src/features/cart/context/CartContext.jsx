@@ -5,12 +5,13 @@ import { useAuthContext } from '../../auth/context/AuthContext.jsx';
 const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, isBuyer } = useAuthContext();
   const [cart, setCart] = useState({ items: [], subtotal: 0, totalItems: 0 });
   const [loading, setLoading] = useState(false);
 
   const fetchCart = useCallback(async () => {
-    if (!isAuthenticated) {
+    // Only buyer accounts have active carts
+    if (!isAuthenticated || !isBuyer) {
       setCart({ items: [], subtotal: 0, totalItems: 0 });
       return;
     }
@@ -25,13 +26,16 @@ export const CartProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isBuyer]);
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
   const addItem = async (listingId, quantity = 1) => {
+    if (!isBuyer) {
+      throw new Error('Seller accounts cannot purchase items. Please log in with a buyer account.');
+    }
     const res = await cartApi.addItem({ listingId, quantity });
     if (res.success && res.data.cart) {
       setCart(res.data.cart);

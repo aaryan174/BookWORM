@@ -18,6 +18,7 @@ import orderRoutes from './routes/order.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import reviewRoutes from './routes/review.routes.js';
 import adminRoutes from './routes/admin.routes.js';
+import storageRoutes from './routes/storage.routes.js';
 
 const app = express();
 
@@ -36,10 +37,8 @@ if (config.env === 'development') {
   app.use(morgan('dev'));
 }
 
-// Payment webhook uses raw body, so mount payment routes before standard json parser
-app.use('/api/v1/payments', paymentRoutes);
-
-// Parsers
+// Parsers: Payment webhook uses raw body buffer; standard API routes use JSON parser
+app.use('/api/v1/payments/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
@@ -63,8 +62,10 @@ app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/seller', sellerRoutes);
 app.use('/api/v1/cart', cartRoutes);
 app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/storage', storageRoutes);
 
 // Unhandled route handler
 app.all('*', (req, res, next) => {

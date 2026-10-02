@@ -11,9 +11,10 @@ const router = Router();
 
 router.use(authenticate);
 
-router.post('/checkout-summary', checkoutSummaryValidator, OrderController.getCheckoutSummary);
-router.post('/', createOrderValidator, OrderController.createOrder);
-router.get('/', OrderController.getBuyerOrders);
+router.post('/checkout-summary', requireRoles('buyer'), checkoutSummaryValidator, OrderController.getCheckoutSummary);
+router.post('/', requireRoles('buyer'), createOrderValidator, OrderController.createOrder);
+router.post('/:id/cancel', requireRoles('buyer'), OrderController.cancelPendingOrder);
+router.get('/', requireRoles('buyer'), OrderController.getBuyerOrders);
 router.get('/:id', OrderController.getOrderById);
 router.patch('/:id/status', requireRoles('seller', 'admin'), updateItemStatusValidator, OrderController.updateItemStatus);
 

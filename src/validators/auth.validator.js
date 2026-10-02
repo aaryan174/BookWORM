@@ -20,6 +20,15 @@ export const registerValidator = [
     .withMessage('Password is required')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long'),
+  body('role')
+    .optional()
+    .isIn(['buyer', 'seller', 'both'])
+    .withMessage('Role must be either buyer, seller, or both'),
+  body('storeName')
+    .optional()
+    .trim()
+    .isLength({ max: 60 })
+    .withMessage('Store name cannot exceed 60 characters'),
   validateRequest
 ];
 

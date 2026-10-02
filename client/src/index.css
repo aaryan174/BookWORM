@@ -1,41 +1,85 @@
 :root {
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Merriweather', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Harmonious Dark / Premium Indigo Color Tokens */
-  --bg-primary: #0b0f19;
-  --bg-secondary: #111827;
-  --bg-card: rgba(17, 24, 39, 0.75);
-  --bg-card-hover: rgba(31, 41, 55, 0.85);
-  --bg-glass: rgba(255, 255, 255, 0.03);
+  /* Stitch Design System: Literary Provenance */
+  --bg-primary: #fcf9f2;         /* Warm unbleached parchment canvas */
+  --bg-secondary: #f6f3ec;       /* Sub-hero & section container */
+  --bg-surface: #f8f5ee;         /* Card & structural container */
+  --bg-surface-high: #ebe8e1;    /* Elevated chip / active indicator */
+  --bg-surface-highest: #e5e2db; /* Accent surface */
+  --bg-card: #f8f5ee;
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(252, 249, 242, 0.92);
 
-  --accent-primary: #6366f1;
-  --accent-primary-hover: #4f46e5;
-  --accent-glow: rgba(99, 102, 241, 0.35);
-  --accent-secondary: #ec4899;
+  --accent-primary: #0f172a;       /* Deep Ink Navy */
+  --accent-primary-hover: #1e293b;
+  --accent-secondary: #b45309;     /* Antique Bronze / Amber CTA */
+  --accent-secondary-hover: #92400e;
+  --accent-glow: rgba(180, 83, 9, 0.18);
   
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
-  --text-subtle: #6b7280;
+  --tertiary-guild: #2d6a4f;      /* Archival Sage - Verified Seller & Seals */
+  --tertiary-light: #dcfce7;
 
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(99, 102, 241, 0.6);
+  --text-main: #1c1c18;          /* Deep Ink Letterpress */
+  --text-muted: #45464d;         /* Slate Vellum Muted */
+  --text-subtle: #76777d;        /* Bibliographical Metadata */
 
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #3b82f6;
+  --border-color: #e2dcd5;       /* Deckle-edge hairline */
+  --border-subtle: #eeebe5;
+  --border-focus: #b45309;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+  --success: #166534;
+  --warning: #b45309;
+  --danger: #ba1a1a;
+  --info: #0f172a;
+
+  --radius-sm: 4px;             /* Crisp trimmed cardstock corners */
+  --radius-md: 8px;             /* Structural bookplate cards */
+  --radius-lg: 12px;
   --radius-full: 9999px;
 
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.25);
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-glass: 0 4px 20px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 6px 12px -2px rgba(15, 23, 42, 0.05);
 
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  /* Stitch Design System: Midnight Scholar / Dark Vellum */
+  --bg-primary: #12110f;         /* Deep midnight archival leather */
+  --bg-secondary: #181613;       /* Sub-hero & section container */
+  --bg-surface: #1e1c18;         /* Card & structural container */
+  --bg-surface-high: #27241f;    /* Elevated chip / active indicator */
+  --bg-surface-highest: #332f29; /* Accent surface */
+  --bg-card: #1a1815;
+  --bg-card-hover: #22201b;
+  --bg-glass: rgba(18, 17, 15, 0.94);
+
+  --accent-primary: #f5efe6;       /* Crisp letterpress cream */
+  --accent-primary-hover: #ffffff;
+  --accent-secondary: #d97706;     /* Luminous Amber / Bronze CTA */
+  --accent-secondary-hover: #f59e0b;
+  --accent-glow: rgba(217, 119, 6, 0.28);
+  
+  --tertiary-guild: #34d399;      /* Luminous Archival Emerald */
+  --tertiary-light: #064e3b;
+
+  --text-main: #f3efe6;          /* Crisp Parchment Type */
+  --text-muted: #a8a296;         /* Warm Slate Vellum Muted */
+  --text-subtle: #797367;        /* Bibliographical Metadata */
+
+  --border-color: #2d2923;       /* Dark bookbinding hairline */
+  --border-subtle: #231f19;
+  --border-focus: #d97706;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.65);
+  --shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -52,14 +96,14 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   background-image: 
-    radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-    radial-gradient(at 90% 90%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(180, 83, 9, 0.03) 0px, transparent 40%),
+    radial-gradient(at 100% 100%, rgba(45, 106, 79, 0.03) 0px, transparent 40%);
   background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   font-weight: 700;
   color: var(--text-main);
 }
@@ -76,14 +120,14 @@ button {
   background: none;
 }
 
-/* Glassmorphism Card Utility */
+/* Tactile Parchment Panels */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-glass);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .glass-panel-hover {
@@ -92,62 +136,78 @@ button {
 
 .glass-panel-hover:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: #cbd5e1;
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Common Layout Containers */
+/* Layout Container */
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* Button Primitives */
+/* Editorial Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.35rem;
   font-weight: 600;
+  font-family: var(--font-body);
   border-radius: var(--radius-sm);
   transition: var(--transition-normal);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
 }
 
+/* Primary CTA: Antique Bronze Gilding */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-primary) 0%, #4f46e5 100%);
-  color: #fff;
-  box-shadow: 0 4px 14px var(--accent-glow);
+  background: var(--accent-secondary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.25);
+  border: 1px solid transparent;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  background: var(--accent-secondary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35);
 }
 
+/* Secondary Button: Classic Ink Navy Outline */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--bg-card-hover);
+  border-color: var(--accent-secondary);
+  color: var(--text-main);
 }
 
 .btn-danger {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+}
+
+[data-theme="dark"] .btn-danger {
+  background: #450a0a;
+  color: #fca5a5;
+  border-color: #7f1d1d;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: rgba(239, 68, 68, 0.25);
+  background: #fee2e2;
+}
+
+[data-theme="dark"] .btn-danger:hover:not(:disabled) {
+  background: #7f1d1d;
 }
 
 .btn:disabled {
@@ -155,7 +215,7 @@ button {
   cursor: not-allowed;
 }
 
-/* Input Fields */
+/* Editorial Form Controls */
 .form-group {
   margin-bottom: 1.25rem;
   display: flex;
@@ -164,66 +224,97 @@ button {
 }
 
 .form-label {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
 .form-input, .form-select, .form-textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(17, 24, 39, 0.6);
+  background: var(--bg-card-hover);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  font-family: inherit;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   transition: var(--transition-fast);
 }
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
-  border-color: var(--accent-primary);
+  border-color: var(--border-focus);
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-/* Status Badges */
+/* Bibliographical Condition Badges */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
-.badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-.badge-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-.badge-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-.badge-info { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-new {
+  background: #eef2f6;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+}
 
-/* Keyframe Animations */
+.badge-likenew {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-good {
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+}
+
+.badge-fair {
+  background: #ffedd5;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+}
+
+.badge-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.badge-warning { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.badge-danger { background: #fee2e2; color: #ba1a1a; border: 1px solid #fecaca; }
+.badge-info { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
+
+/* Micro-animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.25s ease forwards;
 }
 
 .spinner {
   width: 24px;
   height: 24px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(180, 83, 9, 0.15);
   border-radius: 50%;
-  border-top-color: var(--accent-primary);
+  border-top-color: var(--accent-secondary);
   animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Material Symbols alignment */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
 }

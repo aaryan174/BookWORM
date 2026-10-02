@@ -4,6 +4,7 @@ import { config } from '../config/env.config.js';
 import { OrderDAO } from '../dao/order.dao.js';
 import { PaymentDAO } from '../dao/payment.dao.js';
 import { ListingDAO } from '../dao/listing.dao.js';
+import { CartDAO } from '../dao/cart.dao.js';
 import { AppError } from '../utils/AppError.js';
 
 export class PaymentService {
@@ -98,27 +99,40 @@ export class PaymentService {
     if (config.razorpay.keyId.startsWith('rzp_test_bookworm')) {
       // Mock signature verification for test environment
       isValid = true;
+    } else if (process.env.NODE_ENV !== 'production' && razorpaySignature === 'simulated_valid_signature') {
+      // Allow simulation bypass during local development if testing without Razorpay UI popup
+      isValid = true;
     } else {
       const generatedSignature = crypto
         .createHmac('sha256', config.razorpay.keySecret)
         .update(`${razorpayOrderId}|${razorpayPaymentId}`)
         .digest('hex');
 
-      isValid = crypto.timingSafeEqual(
-        Buffer.from(generatedSignature, 'utf-8'),
-        Buffer.from(razorpaySignature, 'utf-8')
-      );
+      const expectedBuf = Buffer.from(generatedSignature, 'utf-8');
+      const receivedBuf = Buffer.from(razorpaySignature || '', 'utf-8');
+
+      if (expectedBuf.length === receivedBuf.length) {
+        isValid = crypto.timingSafeEqual(expectedBuf, receivedBuf);
+      } else {
+        isValid = false;
+      }
     }
 
     if (!isValid) {
       await PaymentDAO.updateTransactionStatus(razorpayOrderId, 'FAILED', razorpayPaymentId, razorpaySignature);
       await OrderDAO.updateOrderStatus(order._id, 'FAILED');
+      for (const item of order.items) {
+        await ListingDAO.releaseStock(item.listingId, item.quantity);
+      }
       throw new AppError('Payment signature verification failed', 400);
     }
 
     // Signature valid -> Mark transaction & order as PAID
     await PaymentDAO.updateTransactionStatus(razorpayOrderId, 'CAPTURED', razorpayPaymentId, razorpaySignature);
     const updatedOrder = await OrderDAO.updateOrderStatus(order._id, 'PAID', razorpayPaymentId);
+
+    // Clear cart in DB now that payment is confirmed
+    await CartDAO.clearCart(userId);
 
     return updatedOrder;
   }
@@ -154,6 +168,7 @@ export class PaymentService {
         if (order && order.orderStatus !== 'PAID') {
           await OrderDAO.updateOrderStatus(order._id, 'PAID', razorpayPaymentId);
           await PaymentDAO.updateTransactionStatus(razorpayOrderId, 'CAPTURED', razorpayPaymentId, signature, payload);
+          await CartDAO.clearCart(order.buyerId);
         }
       }
     } else if (eventType === 'payment.failed') {

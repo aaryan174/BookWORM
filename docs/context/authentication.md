@@ -34,7 +34,7 @@ Uses Express middleware (`authenticateUser`, `requireRoles`) to protect downstre
 - Passwords must be hashed with bcrypt (salt rounds = 12). Plain text passwords must never be stored or logged.
 - User email addresses must be stored in lowercase and must be unique.
 - JWT access tokens expire in 15 minutes; refresh tokens expire in 7 days.
-- Roles default to `['buyer']`. Seller capability is appended when seller onboarding completes.
+- Roles can be selected during registration: `buyer`, `seller`, or `both`. Selecting `seller` or `both` automatically provisions an initial `SellerProfile` in `SellerDAO`.
 
 ## Security
 - Auth tokens are strictly delivered via `httpOnly`, `sameSite=strict`, and `secure` (in production) cookies.

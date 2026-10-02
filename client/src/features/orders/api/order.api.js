@@ -5,5 +5,6 @@ export const orderApi = {
   createOrder: (payload) => apiClient.post('/orders', payload),
   getOrders: (params) => apiClient.get('/orders', { params }),
   getOrderById: (id) => apiClient.get(`/orders/${id}`),
+  cancelPendingOrder: (id) => apiClient.post(`/orders/${id}/cancel`),
   updateItemStatus: (id, payload) => apiClient.patch(`/orders/${id}/status`, payload)
 };

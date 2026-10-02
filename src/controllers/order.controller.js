@@ -13,6 +13,11 @@ export class OrderController {
     return sendSuccess(res, 'Order created successfully', { order }, 201);
   });
 
+  static cancelPendingOrder = asyncHandler(async (req, res) => {
+    const order = await OrderService.cancelPendingOrder(req.params.id, req.user._id);
+    return sendSuccess(res, 'Order cancelled and stock released', { order });
+  });
+
   static getBuyerOrders = asyncHandler(async (req, res) => {
     const result = await OrderService.getBuyerOrders(req.user._id, req.query);
     return sendSuccess(res, 'Orders fetched successfully', result);

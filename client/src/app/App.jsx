@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from '../contexts/ToastContext.jsx';
+import { ThemeProvider } from '../contexts/ThemeContext.jsx';
 import { AuthProvider, useAuthContext } from '../features/auth/context/AuthContext.jsx';
 import { CartProvider } from '../features/cart/context/CartContext.jsx';
 import { Navbar } from '../layouts/Navbar.jsx';
@@ -28,26 +29,27 @@ const ProtectedRoute = ({ children, requireRole }) => {
 export const App = () => {
   return (
     <BrowserRouter>
-      <ToastProvider>
-        <AuthProvider>
-          <CartProvider>
-            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-              <Navbar />
-              <main style={{ flex: 1 }}>
-                <Routes>
-                  <Route path="/" element={<BookCatalogPage />} />
-                  <Route path="/books/:id" element={<BookDetailPage />} />
-                  <Route path="/cart" element={<CartPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
+      <ThemeProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <CartProvider>
+              <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <Navbar />
+                <main style={{ flex: 1 }}>
+                  <Routes>
+                    <Route path="/" element={<BookCatalogPage />} />
+                    <Route path="/books/:id" element={<BookDetailPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
 
-                  {/* Protected Buyer Routes */}
-                  <Route path="/checkout" element={
-                    <ProtectedRoute><CheckoutPage /></ProtectedRoute>
-                  } />
-                  <Route path="/orders" element={
-                    <ProtectedRoute><OrderHistoryPage /></ProtectedRoute>
-                  } />
+                    {/* Protected Buyer-Only Routes */}
+                    <Route path="/checkout" element={
+                      <ProtectedRoute requireRole="buyer"><CheckoutPage /></ProtectedRoute>
+                    } />
+                    <Route path="/orders" element={
+                      <ProtectedRoute requireRole="buyer"><OrderHistoryPage /></ProtectedRoute>
+                    } />
 
                   {/* Protected Seller Routes */}
                   <Route path="/seller/onboard" element={
@@ -70,6 +72,7 @@ export const App = () => {
           </CartProvider>
         </AuthProvider>
       </ToastProvider>
-    </BrowserRouter>
-  );
+    </ThemeProvider>
+  </BrowserRouter>
+);
 };

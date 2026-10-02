@@ -17,6 +17,13 @@ export class OrderDAO {
     return await Order.create(orderData);
   }
 
+  static async findPendingByBuyerId(buyerId) {
+    return await Order.find({
+      buyerId,
+      orderStatus: { $in: ['PENDING_PAYMENT', 'PAYMENT_PROCESSING'] }
+    });
+  }
+
   static async findByBuyerId(buyerId, { page = 1, limit = 10 }) {
     const skip = (page - 1) * limit;
     const [orders, total] = await Promise.all([

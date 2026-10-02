@@ -47,6 +47,16 @@ export class OrderService {
   }
 
   static async createPendingOrder(userId, addressId) {
+    // 1. Release any previous unpaid pending orders for this buyer to restore their reserved stock
+    const staleOrders = await OrderDAO.findPendingByBuyerId(userId);
+    for (const stale of staleOrders) {
+      await OrderDAO.updateOrderStatus(stale._id, 'CANCELLED');
+      for (const item of stale.items) {
+        await ListingDAO.releaseStock(item.listingId, item.quantity);
+      }
+    }
+
+    // 2. Calculate summary on available items
     const summary = await this.getCheckoutSummary(userId, addressId);
 
     const orderNumber = `BW-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -109,8 +119,24 @@ export class OrderService {
       orderStatus: 'PENDING_PAYMENT'
     });
 
-    // Clear buyer's cart after successful order creation
-    await CartDAO.clearCart(userId);
+    // NOTE: Cart is NOT cleared here! It is only cleared when payment is verified!
+    return order;
+  }
+
+  static async cancelPendingOrder(orderId, userId) {
+    const order = await OrderDAO.findById(orderId);
+    if (!order) throw new AppError('Order not found', 404);
+
+    if (order.buyerId._id.toString() !== userId.toString()) {
+      throw new AppError('Unauthorized access to order', 403);
+    }
+
+    if (['PENDING_PAYMENT', 'PAYMENT_PROCESSING'].includes(order.orderStatus)) {
+      await OrderDAO.updateOrderStatus(order._id, 'CANCELLED');
+      for (const item of order.items) {
+        await ListingDAO.releaseStock(item.listingId, item.quantity);
+      }
+    }
 
     return order;
   }

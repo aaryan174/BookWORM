@@ -27,12 +27,23 @@ export const SellerOnboardingPage = () => {
     <div className="container" style={{ padding: '4rem 1.5rem', display: 'flex', justifyContent: 'center' }}>
       <div className="glass-panel" style={{ width: '100%', maxWidth: '580px', padding: '2.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ background: 'linear-gradient(135deg, #ec4899 0%, #6366f1 100%)', width: '52px', height: '52px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem auto' }}>
-            <Store size={26} color="#fff" />
+          <div style={{
+            background: 'var(--accent-primary)',
+            color: '#fff',
+            width: '56px',
+            height: '56px',
+            borderRadius: 'var(--radius-md)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1.25rem auto',
+            boxShadow: '0 4px 12px rgba(44, 36, 27, 0.15)'
+          }}>
+            <Store size={28} color="var(--accent-secondary)" />
           </div>
-          <h2>Seller Onboarding</h2>
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--accent-primary)' }}>Bookseller Studio Onboarding</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.35rem' }}>
-            Create your marketplace book store profile to start listing books and earning revenue
+            Establish your certified marketplace bookshop to publish titles and manage orders
           </p>
         </div>
 

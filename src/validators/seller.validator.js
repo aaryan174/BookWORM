@@ -26,5 +26,7 @@ export const updateListingValidator = [
   body('price').optional().isFloat({ min: 0 }),
   body('stockQuantity').optional().isInt({ min: 0 }),
   body('status').optional().isIn(['ACTIVE', 'INACTIVE', 'SOLD_OUT']),
+  body('condition').optional().isIn(['NEW', 'LIKE_NEW', 'VERY_GOOD', 'GOOD', 'ACCEPTABLE']),
+  body('descriptionNotes').optional().trim(),
   validateRequest
 ];
