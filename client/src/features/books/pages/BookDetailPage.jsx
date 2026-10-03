@@ -135,9 +135,9 @@ export const BookDetailPage = () => {
 
             <p style={{
               color: 'var(--text-main)',
-              lineHeight: 1.7,
-              fontSize: '0.98rem',
-              fontFamily: 'var(--font-heading)',
+              lineHeight: 1.6,
+              fontSize: '0.96rem',
+              fontFamily: 'var(--font-body)',
               fontStyle: 'normal'
             }}>
               {book.description}
