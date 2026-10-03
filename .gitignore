@@ -1,3 +1,67 @@
+# ==============================================================================
+# BookWORM Git Ignore Rules
+# ==============================================================================
+
+# 1. Environment & Secret Credentials (NEVER COMMIT)
 .env
-.env.example
-node_modules
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+!*.env.example
+!.env.example
+
+# 2. Dependency Directories (Re-installable via `npm install`)
+node_modules/
+*/node_modules/
+package-lock.json.backup
+
+# 3. Production Build Artifacts & Bundles
+dist/
+dist-ssr/
+build/
+client/dist/
+client/build/
+.vite/
+client/.vite/
+
+# 4. Logs and Debugging Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 5. OS & File Manager Artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# 6. IDE & Text Editor Artifacts
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# 7. Testing, Coverage & Scratch Scripts
+coverage/
+*.lcov
+.nyc_output/
+scratch/
+tmp/
+temp/

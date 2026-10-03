@@ -79,6 +79,10 @@ export const BookDetailPage = () => {
           <img
             src={book.coverImageUrl}
             alt={book.title}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop';
+            }}
             style={{
               maxHeight: '320px',
               maxWidth: '100%',
