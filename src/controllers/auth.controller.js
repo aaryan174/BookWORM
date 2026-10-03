@@ -33,8 +33,14 @@ export class AuthController {
   });
 
   static logout = asyncHandler(async (req, res) => {
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    const isProd = process.env.NODE_ENV === 'production';
+    const cookieOpts = {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax'
+    };
+    res.clearCookie('accessToken', cookieOpts);
+    res.clearCookie('refreshToken', cookieOpts);
     return sendSuccess(res, 'Logged out successfully');
   });
 

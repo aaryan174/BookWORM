@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+// Resolve API base URL: supports both standalone frontend (VITE_API_URL) and unified fullstack deployments (/api/v1)
+const envApiUrl = import.meta.env.VITE_API_URL;
+const baseURL = envApiUrl ? `${envApiUrl.replace(/\/$/, '')}/api/v1` : '/api/v1';
+
 export const apiClient = axios.create({
-  baseURL: '/api/v1',
+  baseURL,
   withCredentials: true
 });
 
