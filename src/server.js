@@ -5,10 +5,11 @@ import { config } from './config/env.config.js';
 const startServer = async () => {
   await connectDB();
 
-  const server = app.listen(config.port, () => {
+  const HOST = '0.0.0.0';
+  const server = app.listen(config.port, HOST, () => {
     console.log(`=======================================================`);
     console.log(`🚀 BookWORM Marketplace Server running in [${config.env}] mode`);
-    console.log(`📡 Listening on http://localhost:${config.port}`);
+    console.log(`📡 Listening on http://${HOST}:${config.port}`);
     console.log(`=======================================================`);
   });
 
