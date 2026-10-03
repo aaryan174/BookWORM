@@ -108,7 +108,7 @@ export const CheckoutPage = () => {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '2rem', alignItems: 'start' }}>
+      <div className="responsive-two-col" style={{ gap: '2rem', alignItems: 'start' }}>
         <div>
           {/* Address Selection */}
           <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2rem', background: 'var(--bg-surface)' }}>
@@ -124,7 +124,7 @@ export const CheckoutPage = () => {
             {showAddAddr && (
               <form onSubmit={handleAddAddress} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', marginBottom: '1.5rem' }}>
                 <h4 style={{ marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>New Delivery Address</h4>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="form-grid-2">
                   <div className="form-group">
                     <label className="form-label">Full Recipient Name</label>
                     <input type="text" className="form-input" required value={newAddr.fullName} onChange={(e) => setNewAddr({ ...newAddr, fullName: e.target.value })} />
@@ -138,7 +138,7 @@ export const CheckoutPage = () => {
                   <label className="form-label">Street Address & Landmark</label>
                   <input type="text" className="form-input" required value={newAddr.streetAddress} onChange={(e) => setNewAddr({ ...newAddr, streetAddress: e.target.value })} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                <div className="form-grid-3">
                   <div className="form-group">
                     <label className="form-label">City</label>
                     <input type="text" className="form-input" required value={newAddr.city} onChange={(e) => setNewAddr({ ...newAddr, city: e.target.value })} />

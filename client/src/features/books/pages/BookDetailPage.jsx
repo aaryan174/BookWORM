@@ -57,11 +57,8 @@ export const BookDetailPage = () => {
   return (
     <div className="container" style={{ padding: '2.5rem 1.5rem 5rem 1.5rem' }}>
       {/* Book Presentation Banner */}
-      <div className="glass-panel" style={{
+      <div className="glass-panel book-detail-hero" style={{
         padding: '2.5rem',
-        display: 'grid',
-        gridTemplateColumns: 'minmax(240px, 280px) 1fr',
-        gap: '3rem',
         marginBottom: '3rem',
         background: 'var(--bg-surface)'
       }}>
@@ -279,7 +276,7 @@ export const BookDetailPage = () => {
       </div>
 
       {/* Verified Reviews Section */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 360px', gap: '2.5rem', alignItems: 'start' }}>
+      <div className="responsive-two-col" style={{ gap: '2.5rem', alignItems: 'start' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', color: 'var(--accent-primary)' }}>
             Reader Appraisals & Reviews ({reviews.length})

@@ -36,7 +36,7 @@ export const BookCatalogPage = () => {
                   Verified Guild Edition 2026
                 </span>
               </div>
-              <h1 style={{ fontSize: '2.5rem', lineHeight: 1.15, marginBottom: '0.75rem', color: 'var(--text-main)' }}>
+              <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: 1.15, marginBottom: '0.75rem', color: 'var(--text-main)' }}>
                 Explore the Literary Exchange
               </h1>
               <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.5 }}>
@@ -53,7 +53,8 @@ export const BookCatalogPage = () => {
               border: '1px solid var(--border-color)',
               padding: '0.75rem 1.25rem',
               borderRadius: 'var(--radius-md)',
-              boxShadow: 'var(--shadow-subtle)'
+              boxShadow: 'var(--shadow-subtle)',
+              flexWrap: 'wrap'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BookOpen size={18} color="var(--accent-secondary)" />
@@ -75,7 +76,7 @@ export const BookCatalogPage = () => {
 
           {/* Search & Sort Controls */}
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', maxWidth: '850px' }}>
-            <div style={{ position: 'relative', flex: 1, minWidth: '280px' }}>
+            <div style={{ position: 'relative', flex: 1, minWidth: 'min(280px, 100%)' }}>
               <Search size={18} color="var(--text-subtle)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="text"
@@ -88,7 +89,7 @@ export const BookCatalogPage = () => {
             </div>
             <select
               className="form-select"
-              style={{ width: '180px' }}
+              style={{ width: 'min(180px, 100%)' }}
               value={filters.sort}
               onChange={(e) => updateFilters({ sort: e.target.value })}
             >
@@ -103,7 +104,14 @@ export const BookCatalogPage = () => {
       {/* Main Catalog Body */}
       <div className="container" style={{ paddingBottom: '4rem' }}>
         {/* Category Filter Chips */}
-        <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem', marginBottom: '2rem' }}>
+        <div style={{
+          display: 'flex',
+          gap: '0.5rem',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          paddingBottom: '0.5rem',
+          marginBottom: '2rem'
+        }}>
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -114,7 +122,8 @@ export const BookCatalogPage = () => {
                 fontSize: '0.8rem',
                 borderRadius: 'var(--radius-sm)',
                 textTransform: 'uppercase',
-                letterSpacing: '0.04em'
+                letterSpacing: '0.04em',
+                flexShrink: 0
               }}
             >
               {cat}

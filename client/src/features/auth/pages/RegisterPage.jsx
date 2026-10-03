@@ -69,7 +69,7 @@ export const RegisterPage = () => {
             <label className="form-label" style={{ marginBottom: '0.5rem' }}>
               How do you plan to use BookWORM?
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem' }}>
               {/* Buyer Option */}
               <div
                 onClick={() => setForm({ ...form, role: 'buyer' })}

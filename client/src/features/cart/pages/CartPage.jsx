@@ -89,19 +89,14 @@ export const CartPage = () => {
         </h1>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '2rem', alignItems: 'start' }}>
+      <div className="responsive-two-col" style={{ gap: '2rem', alignItems: 'start' }}>
         {/* Cart Item List */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {items.map((item) => (
             <div
               key={item._id}
-              className="glass-panel"
+              className="glass-panel cart-item-card"
               style={{
-                padding: '1.25rem 1.5rem',
-                display: 'grid',
-                gridTemplateColumns: '80px 1fr auto auto auto',
-                alignItems: 'center',
-                gap: '1.5rem',
                 background: 'var(--bg-surface)'
               }}
             >
@@ -145,52 +140,55 @@ export const CartPage = () => {
                 </div>
               </div>
 
-              {/* Quantity Stepper */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <button
-                  disabled={item.quantity <= 1 || updatingId === item.listingId}
-                  onClick={() => updateQuantity(item.listingId, item.quantity - 1)}
-                  className="btn btn-secondary"
-                  style={{ width: '30px', height: '30px', padding: 0 }}
-                >
-                  -
-                </button>
-                <span style={{ fontWeight: 700, width: '24px', textAlign: 'center', fontSize: '0.9rem' }}>
-                  {item.quantity}
-                </span>
-                <button
-                  disabled={updatingId === item.listingId || item.quantity >= item.stockAvailable}
-                  onClick={() => updateQuantity(item.listingId, item.quantity + 1)}
-                  className="btn btn-secondary"
-                  style={{ width: '30px', height: '30px', padding: 0 }}
-                >
-                  +
-                </button>
-              </div>
-
-              {/* Price Calculation */}
-              <div style={{ textAlign: 'right', minWidth: '90px' }}>
-                <div style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontWeight: 700,
-                  fontSize: '1.25rem',
-                  color: 'var(--accent-secondary)'
-                }}>
-                  ₹{item.itemTotal}
+              {/* Item Actions & Price Meta Container */}
+              <div className="cart-item-meta">
+                {/* Quantity Stepper */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <button
+                    disabled={item.quantity <= 1 || updatingId === item.listingId}
+                    onClick={() => updateQuantity(item.listingId, item.quantity - 1)}
+                    className="btn btn-secondary"
+                    style={{ width: '30px', height: '30px', padding: 0 }}
+                  >
+                    -
+                  </button>
+                  <span style={{ fontWeight: 700, width: '24px', textAlign: 'center', fontSize: '0.9rem' }}>
+                    {item.quantity}
+                  </span>
+                  <button
+                    disabled={updatingId === item.listingId || item.quantity >= item.stockAvailable}
+                    onClick={() => updateQuantity(item.listingId, item.quantity + 1)}
+                    className="btn btn-secondary"
+                    style={{ width: '30px', height: '30px', padding: 0 }}
+                  >
+                    +
+                  </button>
                 </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)' }}>₹{item.price} each</div>
-              </div>
 
-              {/* Remove Action */}
-              <button
-                onClick={() => removeItem(item.listingId)}
-                disabled={updatingId === item.listingId}
-                className="btn btn-secondary"
-                title="Remove volume"
-                style={{ padding: '0.45rem', borderColor: 'transparent', color: 'var(--danger)' }}
-              >
-                <Trash2 size={16} />
-              </button>
+                {/* Price Calculation */}
+                <div style={{ textAlign: 'right', minWidth: '90px' }}>
+                  <div style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontWeight: 700,
+                    fontSize: '1.25rem',
+                    color: 'var(--accent-secondary)'
+                  }}>
+                    ₹{item.itemTotal}
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)' }}>₹{item.price} each</div>
+                </div>
+
+                {/* Remove Action */}
+                <button
+                  onClick={() => removeItem(item.listingId)}
+                  disabled={updatingId === item.listingId}
+                  className="btn btn-secondary"
+                  title="Remove volume"
+                  style={{ padding: '0.45rem', borderColor: 'transparent', color: 'var(--danger)' }}
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
           ))}
 
