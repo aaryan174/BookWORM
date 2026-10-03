@@ -158,49 +158,26 @@ export const BookCatalogPage = () => {
                 <Link
                   key={book._id}
                   to={`/books/${book._id}`}
-                  className="glass-panel glass-panel-hover"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    overflow: 'hidden',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-color)',
-                    background: 'var(--bg-card)'
-                  }}
+                  className="book-card-glass"
                 >
-                  {/* Recessed Cover Mat */}
-                  <div style={{
-                    height: '260px',
-                    background: '#ede8de',
-                    padding: '1.25rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative'
-                  }}>
+                  {/* Frosted Glass Cover Showcase Stage */}
+                  <div className="book-cover-stage">
                     <img
                       src={book.coverImageUrl}
                       alt={book.title}
+                      className="book-cover-img"
                       onError={(e) => {
                         e.currentTarget.onerror = null;
                         e.currentTarget.src = 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop';
                       }}
-                      style={{
-                        maxHeight: '100%',
-                        maxWidth: '85%',
-                        objectFit: 'contain',
-                        borderRadius: '2px',
-                        boxShadow: '0 8px 18px rgba(15, 23, 42, 0.18), inset 0 0 0 1px rgba(15, 23, 42, 0.08)'
-                      }}
                     />
                     <span
-                      className="badge badge-info"
+                      className="badge badge-glass"
                       style={{
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
-                        fontSize: '0.65rem',
-                        boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)'
+                        fontSize: '0.65rem'
                       }}
                     >
                       {book.category}

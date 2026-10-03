@@ -62,15 +62,18 @@ export const BookDetailPage = () => {
         marginBottom: '3rem',
         background: 'var(--bg-surface)'
       }}>
-        {/* Recessed Cover Mat */}
+        {/* Ambient Frosted Glass Cover Stage */}
         <div style={{
-          background: '#ede8de',
+          background: 'var(--bg-cover-stage)',
           borderRadius: 'var(--radius-md)',
-          padding: '1.5rem',
+          padding: '1.75rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: '1px solid var(--border-color)',
+          border: '1px solid var(--border-glass-subtle)',
+          boxShadow: 'var(--shadow-glass-card)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           minHeight: '360px'
         }}>
           <img
@@ -84,8 +87,8 @@ export const BookDetailPage = () => {
               maxHeight: '320px',
               maxWidth: '100%',
               objectFit: 'contain',
-              borderRadius: '2px',
-              boxShadow: '0 12px 28px rgba(15, 23, 42, 0.22), inset 0 0 0 1px rgba(15, 23, 42, 0.08)'
+              borderRadius: '4px',
+              boxShadow: '0 16px 36px -4px rgba(15, 23, 42, 0.25), 0 4px 12px rgba(15, 23, 42, 0.12)'
             }}
           />
         </div>
