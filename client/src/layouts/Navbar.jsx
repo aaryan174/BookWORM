@@ -39,16 +39,31 @@ export const Navbar = () => {
           {/* Brand Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
             <div style={{
-              background: 'var(--accent-primary)',
-              padding: '7px 9px',
-              borderRadius: 'var(--radius-sm)',
+              width: '42px',
+              height: '42px',
+              borderRadius: 'var(--radius-full)',
+              overflow: 'hidden',
+              boxShadow: '0 2px 10px rgba(180, 83, 9, 0.22), 0 0 0 1.5px rgba(180, 83, 9, 0.35)',
+              background: '#ffffff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: 'var(--shadow-card)',
               flexShrink: 0
             }}>
-              <BookOpen size={20} color={isDark ? '#12110f' : '#fcf9f2'} />
+              <img
+                src="/logo-round-sm.png"
+                alt="BookWORM Logo"
+                width="42"
+                height="42"
+                loading="eager"
+                decoding="async"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{

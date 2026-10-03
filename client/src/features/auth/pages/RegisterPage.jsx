@@ -36,19 +36,28 @@ export const RegisterPage = () => {
       <div className="glass-panel" style={{ width: '100%', maxWidth: '520px', padding: '2.5rem', background: 'var(--bg-surface)' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{
-            background: 'var(--accent-primary)',
-            width: '48px',
-            height: '48px',
-            borderRadius: 'var(--radius-sm)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 1rem auto',
-            boxShadow: '0 4px 12px rgba(15, 23, 42, 0.2)'
-          }}>
-            <BookOpen size={24} color="#fcf9f2" />
-          </div>
+          <Link to="/" style={{ display: 'inline-block', margin: '0 auto 1.25rem auto', textDecoration: 'none' }}>
+            <div style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: 'var(--radius-full)',
+              overflow: 'hidden',
+              boxShadow: '0 4px 16px rgba(180, 83, 9, 0.25), 0 0 0 2px rgba(180, 83, 9, 0.25)',
+              background: '#ffffff',
+              margin: '0 auto',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img
+                src="/logo-round.png"
+                alt="BookWORM Mascot"
+                width="56"
+                height="56"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+          </Link>
           <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.9rem', color: 'var(--accent-primary)', marginBottom: '0.35rem' }}>
             Join the Literary Guild
           </h1>

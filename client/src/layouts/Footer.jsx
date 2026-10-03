@@ -17,14 +17,26 @@ export const Footer = () => {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
             <div style={{
-              background: 'var(--accent-primary)',
-              padding: '6px 8px',
-              borderRadius: 'var(--radius-sm)',
+              width: '36px',
+              height: '36px',
+              borderRadius: 'var(--radius-full)',
+              overflow: 'hidden',
+              boxShadow: '0 2px 8px rgba(180, 83, 9, 0.2), 0 0 0 1px rgba(180, 83, 9, 0.3)',
+              background: '#ffffff',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              flexShrink: 0
             }}>
-              <BookOpen size={18} color="#fcf9f2" />
+              <img
+                src="/logo-round-sm.png"
+                alt="BookWORM Logo"
+                width="36"
+                height="36"
+                loading="lazy"
+                decoding="async"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
             <span style={{
               fontFamily: 'var(--font-heading)',
