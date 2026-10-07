@@ -5,7 +5,7 @@ dotenv.config();
 export const config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '5000', 10),
-  mongoUri: process.env.MONGODB_URI || 'mongodb+srv://aryan007lko_db_user:MongoTest12345@cluster0.mtq0rhw.mongodb.net/?authSource=admin',
+  mongoUri: process.env.MONGODB_URI || '',
   jwt: {
     secret: process.env.JWT_SECRET || 'fallback_secret_min32chars_required_key',
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
